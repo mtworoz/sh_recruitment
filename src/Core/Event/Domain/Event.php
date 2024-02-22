@@ -4,10 +4,10 @@ namespace App\Core\Event\Domain;
 
 class Event
 {
-    private $id;
-    private $start;
-    private $end;
-    private $summary;
+    private ?string $id;
+    private ?\DateTime $start;
+    private ?\DateTime $end;
+    private ?string $summary;
 
     public function getId(): ?string
     {

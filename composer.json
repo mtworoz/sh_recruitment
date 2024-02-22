@@ -11,6 +11,7 @@
     "doctrine/doctrine-bundle": "^2.1",
     "doctrine/doctrine-migrations-bundle": "^3.1",
     "doctrine/orm": "^2.9",
+    "johngrogg/ics-parser": "*",
     "symfony/console": "6.3.*",
     "symfony/doctrine-messenger": "6.3.*",
     "symfony/dotenv": "6.3.*",

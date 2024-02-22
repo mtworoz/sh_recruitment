@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libfreetype6-dev \
         libc-client-dev \
         libkrb5-dev \
+        unzip \
     && docker-php-ext-configure gd \
             --with-freetype \
             --with-jpeg \
