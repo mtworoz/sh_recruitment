@@ -2,31 +2,22 @@
 
 namespace App\Core\Event\UserInterface\Controller;
 
+use App\Core\Event\Application\Service\EventService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use ICal\ICal;
 
 class EventController extends AbstractController
 {
+    public function __construct(private EventService $eventService)
+    {
+    }
 
     #[Route(path: "/events", name: "get_events", methods: ["GET"])]
     public function getEvents(Request $request): JsonResponse
     {
-        $url = 'https://slowhop.com/icalendar-export/api-v1/21c0ed902d012461d28605cdb2a8b7a2.ics';
-        $ical = new ICal($url);
-
-        $events = [];
-        foreach ($ical->events() as $event) {
-            $events[] = [
-                'id' => $event->uid,
-                'start' => $event->dtstart,
-                'end' => $event->dtend,
-                'summary' => $event->summary,
-            ];
-        }
-
+        $events = $this->eventService->getEvents();
         return new JsonResponse($events);
     }
 
