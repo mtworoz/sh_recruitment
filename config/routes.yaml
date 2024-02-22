@@ -1,0 +1,5 @@
+controllers:
+  resource:
+    path: ../src/Core/Event/UserInterface/Controller/
+    namespace: App\Core\Event\UserInterface\Controller
+  type: attribute
