@@ -11,6 +11,7 @@ class ICalService
         $ical = new ICal($url);
 
         $events = [];
+
         foreach ($ical->events() as $event) {
             $events[] = [
                 'id' => $event->uid,
