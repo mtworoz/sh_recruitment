@@ -9,7 +9,7 @@ use App\Core\Event\Domain\Event\EventsFetchedEvent;
 use App\Core\Event\Domain\Exception\InvalidDateTimeException;
 use DateTime;
 
-class EventService
+class EventService implements EventServiceInterface
 {
     public function __construct(
         private ICalEventFetcherInterface $iCalEventFetcher,

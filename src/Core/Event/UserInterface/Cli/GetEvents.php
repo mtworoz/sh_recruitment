@@ -2,7 +2,7 @@
 
 namespace App\Core\Event\UserInterface\Cli;
 
-use App\Core\Event\Application\Service\EventService;
+use App\Core\Event\Application\Service\EventServiceInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class GetEvents extends Command
 {
-    public function __construct(private EventService $eventService)
+    public function __construct(private EventServiceInterface $eventService)
     {
         parent::__construct();
     }
