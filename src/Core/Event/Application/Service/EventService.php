@@ -9,9 +9,8 @@ use DateTime;
 
 class EventService
 {
-
     public function __construct(
-        private ICalEventFetcherInterface $iCalEventFetcher
+        private ICalEventFetcherInterface $iCalEventFetcher,
     ){}
 
     /**
@@ -19,7 +18,11 @@ class EventService
      */
     public function getEvents(): array
     {
-        $url = 'https://slowhop.com/icalendar-export/api-v1/21c0ed902d012461d28605cdb2a8b7a2.ics';
+        $url = $_ENV['ICAL_URL'] ?? null;
+
+        if (!$url) {
+            throw new \DomainException('ICAL_URL environment variable is not defined.');
+        }
 
         $events = $this->iCalEventFetcher->fetchAndCacheEvents($url);
 
@@ -36,6 +39,7 @@ class EventService
             } catch (\Exception $e) {
 
                 throw new InvalidDateTimeException("Invalid datetime format for event with id {$event['id']}");
+
             }
         }, $events);
     }
