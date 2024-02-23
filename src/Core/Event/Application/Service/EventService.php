@@ -2,13 +2,13 @@
 
 namespace App\Core\Event\Application\Service;
 
-use App\Common\ICal\ICalService;
+use App\Common\ICal\ICalInterface;
 use App\Core\Event\Domain\DTO\EventDTO;
 
 class EventService
 {
 
-    public function __construct(private ICalService $icalService)
+    public function __construct(private ICalInterface $icalService)
     {
     }
 

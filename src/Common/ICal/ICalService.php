@@ -4,7 +4,7 @@ namespace App\Common\ICal;
 
 use ICal\ICal;
 
-class ICalService
+class ICalService implements ICalInterface
 {
     public function getEvents(string $url): array
     {
