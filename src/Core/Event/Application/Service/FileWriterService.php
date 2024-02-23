@@ -2,7 +2,7 @@
 
 namespace App\Core\Event\Application\Service;
 
-use App\Common\S3Uploader\S3Uploader;
+use App\Common\S3Uploader\S3UploaderInterface;
 use App\Core\Event\Application\Service\Exception\FileWriterException;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -11,7 +11,7 @@ use Psr\Log\LoggerInterface;
 class FileWriterService
 {
     public function __construct(
-        private S3Uploader $s3Uploader,
+        private S3UploaderInterface $s3Uploader,
         private Filesystem $filesystem,
         private LoggerInterface $logger
     ) {}

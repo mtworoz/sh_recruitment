@@ -5,9 +5,9 @@ namespace App\Common\Cache;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
-class CacheService
+class CacheService implements CacheServiceInterface
 {
-    private $cache;
+    private FilesystemAdapter $cache;
 
     public function __construct()
     {

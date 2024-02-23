@@ -7,7 +7,7 @@ use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use Psr\Log\LoggerInterface;
 
-class S3Uploader
+class S3Uploader implements S3UploaderInterface
 {
     private S3Client $s3Client;
 

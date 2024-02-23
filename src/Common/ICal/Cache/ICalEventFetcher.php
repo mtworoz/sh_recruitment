@@ -2,21 +2,16 @@
 
 namespace App\Common\ICal\Cache;
 
-
-use App\Common\Cache\CacheService;
+use App\Common\Cache\CacheServiceInterface;
 use App\Common\ICal\ICalInterface;
-use Psr\Cache\InvalidArgumentException;
 
 class ICalEventFetcher implements ICalEventFetcherInterface
 {
     public function __construct(
         private ICalInterface $iCalService,
-        private CacheService $cacheService
+        private CacheServiceInterface $cacheService
     ){}
 
-    /**
-     * @throws InvalidArgumentException
-     */
     public function fetchAndCacheEvents(string $url): array
     {
         $cacheKey = md5($url);
