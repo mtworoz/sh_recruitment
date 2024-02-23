@@ -25,13 +25,16 @@ class EventService
 
         return array_map(function ($event) {
             try {
+
                 return new EventDTO(
                     $event['id'],
                     new DateTime($event['start']),
                     new DateTime($event['end']),
                     $event['summary']
                 );
+
             } catch (\Exception $e) {
+
                 throw new InvalidDateTimeException("Invalid datetime format for event with id {$event['id']}");
             }
         }, $events);

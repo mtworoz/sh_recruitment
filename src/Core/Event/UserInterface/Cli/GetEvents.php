@@ -21,17 +21,25 @@ class GetEvents extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $events = $this->eventService->getEvents();
+        try {
+            $events = $this->eventService->getEvents();
 
-        foreach ($events as $event){
-            $output->writeln($event->id);
-            $output->writeln($event->start);
-            $output->writeln($event->end);
-            $output->writeln($event->summary);
-            $output->writeln('');
+            foreach ($events as $event) {
+                $output->writeln('id: ' . $event->id);
+                $output->writeln('start: ' . $event->start->format('Y-m-d'));
+                $output->writeln('end: ' . $event->end->format('Y-m-d'));
+                $output->writeln('summary: ' . $event->summary);
+                $output->writeln('');
+            }
+
+            return Command::SUCCESS;
+
+        } catch (\Exception $e) {
+
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            return Command::FAILURE;
+
         }
-
-        return Command::SUCCESS;
     }
 
 }

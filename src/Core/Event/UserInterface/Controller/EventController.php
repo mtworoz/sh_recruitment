@@ -19,11 +19,16 @@ class EventController extends AbstractController
     #[Route(path: "/events", name: "get_events", methods: ["GET"])]
     public function getEvents(Request $request): JsonResponse
     {
-        $events = $this->eventService->getEvents();
+        try {
 
-        $serializedEvents = $this->serializer->serialize($events, 'json');
+            $events = $this->eventService->getEvents();
+            $serializedEvents = $this->serializer->serialize($events, 'json');
+            return new JsonResponse($serializedEvents, 200, [], true);
 
-        return new JsonResponse($serializedEvents, 200, [], true);
+        } catch (\Exception $e) {
+
+            return new JsonResponse(['error' => $e->getMessage()], 400);
+
+        }
     }
-
 }
