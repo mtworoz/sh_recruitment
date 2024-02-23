@@ -2,9 +2,7 @@
 
 namespace App\Core\Event\Domain\Exception;
 
-use DomainException;
-
-class InvalidDateTimeException extends DomainException
+class InvalidDateTimeException extends EventException
 {
     public function __construct(string $message = 'Invalid datetime provided.')
     {

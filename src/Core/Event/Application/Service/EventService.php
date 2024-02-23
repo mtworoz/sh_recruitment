@@ -6,12 +6,11 @@ use App\Common\ICal\ICalInterface;
 use App\Core\Event\Domain\DTO\EventDTO;
 use App\Core\Event\Domain\Exception\InvalidDateTimeException;
 use DateTime;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class EventService
 {
 
-    public function __construct(private ICalInterface $icalService, private KernelInterface $kernel)
+    public function __construct(private ICalInterface $icalService)
     {
     }
 
