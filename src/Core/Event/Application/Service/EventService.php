@@ -12,7 +12,9 @@ class EventService
     {
     }
 
-
+    /**
+     * @return EventDTO[]
+     */
     public function getEvents(): array
     {
         $url = 'https://slowhop.com/icalendar-export/api-v1/21c0ed902d012461d28605cdb2a8b7a2.ics';
