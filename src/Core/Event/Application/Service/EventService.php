@@ -24,7 +24,7 @@ class EventService
         $url = $_ENV['ICAL_URL'] ?? null;
 
         if (!$url) {
-            throw new \DomainException('ICAL_URL environment variable is not defined.');
+            throw new \InvalidArgumentException('ICAL_URL environment variable is not defined.');
         }
 
         $events = $this->iCalEventFetcher->fetchAndCacheEvents($url);
