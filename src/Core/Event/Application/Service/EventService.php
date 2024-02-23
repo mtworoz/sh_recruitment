@@ -4,6 +4,8 @@ namespace App\Core\Event\Application\Service;
 
 use App\Common\ICal\Cache\ICalEventFetcherInterface;
 use App\Core\Event\Domain\DTO\EventDTO;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use App\Core\Event\Domain\Event\EventsFetchedEvent;
 use App\Core\Event\Domain\Exception\InvalidDateTimeException;
 use DateTime;
 
@@ -11,6 +13,7 @@ class EventService
 {
     public function __construct(
         private ICalEventFetcherInterface $iCalEventFetcher,
+        private EventDispatcherInterface $eventDispatcher
     ){}
 
     /**
@@ -25,6 +28,8 @@ class EventService
         }
 
         $events = $this->iCalEventFetcher->fetchAndCacheEvents($url);
+
+        $this->eventDispatcher->dispatch(new EventsFetchedEvent($events));
 
         return array_map(function ($event) {
             try {
