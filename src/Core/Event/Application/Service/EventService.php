@@ -2,7 +2,7 @@
 
 namespace App\Core\Event\Application\Service;
 
-use App\Common\ICal\ICalInterface;
+use App\Common\ICal\Cache\ICalEventFetcherInterface;
 use App\Core\Event\Domain\DTO\EventDTO;
 use App\Core\Event\Domain\Exception\InvalidDateTimeException;
 use DateTime;
@@ -10,9 +10,9 @@ use DateTime;
 class EventService
 {
 
-    public function __construct(private ICalInterface $icalService)
-    {
-    }
+    public function __construct(
+        private ICalEventFetcherInterface $iCalEventFetcher
+    ){}
 
     /**
      * @return EventDTO[]
@@ -21,7 +21,7 @@ class EventService
     {
         $url = 'https://slowhop.com/icalendar-export/api-v1/21c0ed902d012461d28605cdb2a8b7a2.ics';
 
-        $events = $this->icalService->getEvents($url);
+        $events = $this->iCalEventFetcher->fetchAndCacheEvents($url);
 
         return array_map(function ($event) {
             try {
