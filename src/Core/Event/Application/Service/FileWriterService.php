@@ -2,17 +2,28 @@
 
 namespace App\Core\Event\Application\Service;
 
+use App\Common\S3Uploader\S3Uploader;
+use Symfony\Component\Filesystem\Filesystem;
+
 class FileWriterService
 {
+    public function __construct(
+        private S3Uploader $s3Uploader,
+        private Filesystem $filesystem)
+    {}
+
     public function writeToFilePath(string $fileName, string $data): void
     {
         $directory = 'ics';
-        if (!file_exists($directory) && !is_dir($directory)) {
-            mkdir($directory, 0777, true);
-        }
+
+        $this->filesystem->mkdir($directory, 0777);
 
         $filePath = $directory.'/'.$fileName;
 
-        file_put_contents($filePath, $data);
+        $this->filesystem->dumpFile($filePath, $data);
+
+        $this->s3Uploader->uploadFile($fileName, $filePath);
+
+        $this->filesystem->remove($filePath);
     }
 }
