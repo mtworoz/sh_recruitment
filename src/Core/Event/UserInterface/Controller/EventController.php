@@ -7,18 +7,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class EventController extends AbstractController
 {
-    public function __construct(private EventService $eventService)
-    {
-    }
+    public function __construct(
+        private EventService $eventService,
+        private SerializerInterface $serializer
+    ){}
 
     #[Route(path: "/events", name: "get_events", methods: ["GET"])]
     public function getEvents(Request $request): JsonResponse
     {
         $events = $this->eventService->getEvents();
-        return new JsonResponse($events);
+
+        $serializedEvents = $this->serializer->serialize($events, 'json');
+
+        return new JsonResponse($serializedEvents, 200, [], true);
     }
 
 }

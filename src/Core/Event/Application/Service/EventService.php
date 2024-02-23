@@ -4,6 +4,8 @@ namespace App\Core\Event\Application\Service;
 
 use App\Common\ICal\ICalInterface;
 use App\Core\Event\Domain\DTO\EventDTO;
+use DateTime;
+use Exception;
 
 class EventService
 {
@@ -23,8 +25,8 @@ class EventService
         return array_map(function ($event) {
             return new EventDTO(
                 $event['id'],
-                $event['start'],
-                $event['end'],
+                new DateTime($event['start']),
+                new DateTime($event['end']),
                 $event['summary']
             );
         }, $events);
